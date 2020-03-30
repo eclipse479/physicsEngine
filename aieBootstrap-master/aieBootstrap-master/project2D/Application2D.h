@@ -5,6 +5,7 @@
 
 class circle;
 class physicsScene;
+class line;
 class aligned_bounding_box;
 
 class Application2D : public aie::Application {
@@ -29,6 +30,7 @@ protected:
 	circle*					bluey;
 	circle*					reddy;
 	aligned_bounding_box*	square;
+	line*					rightWall;
 
 	float m_timer;
 };

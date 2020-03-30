@@ -28,3 +28,13 @@ void rigidbody::applySeparationForce(rigidbody* actor2, glm::vec2 force)
 	actor2->applyForce(force);
 	applyForce(-force);
 }
+
+void rigidbody::setVelocity(glm::vec2 newVelocity)
+{
+	velocity = newVelocity;
+}
+
+void rigidbody::setPosition(glm::vec2 newPosition)
+{
+	position = newPosition;
+}

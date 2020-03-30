@@ -22,6 +22,7 @@ public:
 	bool checkCollision(physicsObject* otherObject);
 
 	glm::vec4 getColour();
+
 	virtual void makeGizmo();
 private:
 	float radius = 0.0f;

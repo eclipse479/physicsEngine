@@ -64,13 +64,38 @@ void physicsScene::update(float deltaTime)
 
 
 				int functionIndex = (int(shapeID1) * int(shapeType::shapeCount)) + int(shapeID2);
-				collisionFunction collisionFunctionPtr = collisionFunctionArray[collisionFunctionPtr];
+				collisionFunction collisionFunctionPtr = collisionFunctionArray[functionIndex];
 				if (collisionFunctionPtr != nullptr)
 				{
 					auto  result = collisionFunctionPtr(object1, object2);
 					if (glm::length(result) > 0.001f)
 					{
-						int dummyAssignmentForDebugMode = 1;
+						rigidbody* r1 = dynamic_cast<rigidbody*>(object1);
+						rigidbody* r2 = dynamic_cast<rigidbody*>(object2);
+
+						if(r1)
+						{
+							r1->setVelocity(glm::vec2(0));
+						}
+						if (r2)
+						{
+							r2->setVelocity(glm::vec2(0));
+						}
+
+
+						if (r1 && r2)
+						{
+							r1->setPosition(r1->getPosition() - 0.5f * result);
+							r2->setPosition(r2->getPosition() + 0.5f * result);
+						}
+						else if (r1)
+						{
+							r1->setPosition(r1->getPosition() - 0.5f * result);
+						}
+						else if (r2)
+						{
+							r2->setPosition(r2->getPosition() - 0.5f * result);
+						}
 					}
 				}
 			}

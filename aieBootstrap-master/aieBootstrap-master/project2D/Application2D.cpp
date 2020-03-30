@@ -22,13 +22,8 @@ Application2D::~Application2D() {
 
 bool Application2D::startup() {
 	
-	glm::vec2 circleCenter = glm::vec2(-10, 25);
-	glm::vec2 squareCenter = glm::vec2(50, -40);
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
-	aie::Gizmos::add2DCircle(circleCenter, 10.0f, 32, glm::vec4(0, 1, 0, 1));
-	aie::Gizmos::add2DAABBFilled(squareCenter, glm::vec2(2, 2), glm::vec4(1, 0,0,1));
-	aie::Gizmos::add2DLine(glm::vec3(circleCenter, 1), glm::vec3(squareCenter, 1), glm::vec4(0, 0, 1, 1));
 	
 
 	m_2dRenderer = new aie::Renderer2D();
@@ -44,12 +39,13 @@ bool Application2D::startup() {
 	thePhysicsScene->setGravity(glm::vec2(0.0f,0.0f));
 	
 	square = new aligned_bounding_box(glm::vec2(10, 10), glm::vec2(0, 0), glm::vec4(0, 1, 0, 1), 1, glm::vec2(10, 10));
-
+	//rightWall = new line(glm::vec4(1,0,1,1), glm::vec2(1,0), 50);
 	bluey = new circle(glm::vec2(-15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	reddy = new circle(glm::vec2(15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 7.0f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	thePhysicsScene->addActor(square);
 	thePhysicsScene->addActor(bluey);
 	thePhysicsScene->addActor(reddy);
+	//thePhysicsScene->addActor(rightWall);
 
 	m_timer = 0;
 
@@ -100,7 +96,7 @@ void Application2D::update(float deltaTime) {
 
 
 	aie::Gizmos::clear();
-	square->makeGizmo();
+	//aie::Gizmos::add2DLine(glm::vec2(50, 500), glm::vec2(50, -500), glm::vec4(1, 0, 1, 1));
 	thePhysicsScene->update(deltaTime);
 	thePhysicsScene->updateGizmos();
 

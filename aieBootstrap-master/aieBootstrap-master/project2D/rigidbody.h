@@ -28,8 +28,11 @@ public:
     
     glm::vec2 getPosition() const { return position; }
     glm::vec2 getVelocity() const { return velocity; }
-    float getMass() { return mass; }
+    float getMass()   const { return mass; }
+
+    void setVelocity(glm::vec2 newVelocity);
         
+    void setPosition(glm::vec2 newPosition);
 protected:
     rigidbody(shapeType shapeID, glm::vec2 newPosition, glm::vec2 newVelocity, float newMass);
 

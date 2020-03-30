@@ -5,11 +5,11 @@
 #ifndef _LINE_H_
 #define _LINE_H_
 
-class line : physicsObject
+class line : public physicsObject
 {
 public:
 
-	line(const glm::vec2& a_normal,
+	line(glm::vec4 newColour, const glm::vec2& a_normal,
 		 const float a_distance = 0.0f);
 
 	const glm::vec2 get_normal() const;

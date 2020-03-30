@@ -30,7 +30,7 @@ bool circle::checkCollision(physicsObject* otherObject)
 
 void circle::makeGizmo()
 {
-	aie::Gizmos::add2DCircle(position, radius, 32, colour);
+	aie::Gizmos::add2DCircle(m_position, radius, 32, colour);
 }
 
 glm::vec4 circle::getColour()

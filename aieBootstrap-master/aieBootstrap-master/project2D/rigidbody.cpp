@@ -2,7 +2,7 @@
 
 
 rigidbody::rigidbody(shapeType shapeID, glm::vec2 newPosition, glm::vec2 newVelocity, float newMass) :
-	physicsObject (shapeID), position(newPosition), velocity(newVelocity),mass(newMass)
+	physicsObject (shapeID), m_position(newPosition), velocity(newVelocity),mass(newMass)
 {
 }
 
@@ -10,7 +10,7 @@ rigidbody::rigidbody(shapeType shapeID, glm::vec2 newPosition, glm::vec2 newVelo
 void rigidbody::fixedUpdate(glm::vec2 gravity, float timeStep)
 {
 	applyForce(gravity * mass * timeStep);
-	position += velocity * timeStep;
+	m_position += velocity * timeStep;
 }
 
 void rigidbody::debug()
@@ -36,5 +36,5 @@ void rigidbody::setVelocity(glm::vec2 newVelocity)
 
 void rigidbody::setPosition(glm::vec2 newPosition)
 {
-	position = newPosition;
+	m_position = newPosition;
 }

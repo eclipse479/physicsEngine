@@ -58,7 +58,7 @@ const glm::vec2 aligned_bounding_box::get_max() const
 
 void aligned_bounding_box::makeGizmo()
 {
-	aie::Gizmos::add2DAABBFilled(position, (extents * 0.5f), colour);
+	aie::Gizmos::add2DAABBFilled(m_position, (extents * 0.5f), colour);
 }
 
 bool aligned_bounding_box::checkCollision(physicsObject* otherObject)

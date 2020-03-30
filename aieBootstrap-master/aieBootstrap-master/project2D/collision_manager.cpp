@@ -32,6 +32,8 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 	//checks the X values for collision
 	if (aabb1->get_max().x > aabb2->get_min().x)
 	{
+		float amax = aabb1->get_max().x;
+		float amin = aabb2->get_min().x;
 		float localOverlap = abs(aabb1->get_max().x - aabb2->get_min().x);
 		if (localOverlap < overlap)
 		{
@@ -64,7 +66,7 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 		if (localOverlap < overlap)
 		{
 			overlap = localOverlap;
-			overlapVector = glm::vec2(0, overlap);
+			overlapVector = glm::vec2(0, -overlap);
 		}
 	}
 	else
@@ -77,7 +79,7 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 		if (localOverlap < overlap)
 		{
 			overlap = localOverlap;
-			overlapVector = glm::vec2(0, -overlap);
+			overlapVector = glm::vec2(0, overlap);
 		}
 	}
 	else
@@ -103,7 +105,7 @@ glm::vec2 collision_manager::aabb_vs_circle(const physicsObject* a_aabb, const p
 	float overlap = c->getRadius() - glm::length(displacement);
 
 	if (overlap > 0.0f)
-		return glm::normalize((-displacement) * overlap);
+		return glm::normalize((displacement) * overlap);
 	else
 		return glm::vec2(0);
 }

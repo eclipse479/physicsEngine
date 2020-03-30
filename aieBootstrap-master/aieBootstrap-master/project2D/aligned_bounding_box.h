@@ -29,7 +29,7 @@ public:
 	bool checkCollision(physicsObject* otherObject);
 
 private:
-	glm::vec2 m_position{ 0.0f, 0.0f };
+	//glm::vec2 m_position{ 0.0f, 0.0f };
 	union
 	{
 		glm::vec2 extents;

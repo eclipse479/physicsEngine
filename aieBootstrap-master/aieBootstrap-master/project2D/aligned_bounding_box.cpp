@@ -10,7 +10,7 @@
 //	rigidbody(shapeType::square, a_position)
 //{}
 
-aligned_bounding_box::aligned_bounding_box(const glm::vec2 a_position, glm::vec2 newVelocity, glm::vec2 newExtents, float newMass, glm::vec4 newColour) :
+aligned_bounding_box::aligned_bounding_box(const glm::vec2& a_position, const glm::vec2& newVelocity, glm::vec4 newColour, const float newMass, const glm::vec2& newExtents /*= glm::vec2(1.0f)*/) :
 	rigidbody(shapeType::square, a_position, newVelocity, newMass), colour(newColour), extents(newExtents)
 {
 
@@ -63,5 +63,5 @@ void aligned_bounding_box::makeGizmo()
 
 bool aligned_bounding_box::checkCollision(physicsObject* otherObject)
 {
-	return collision_manager::aabb_vs_circle(*this, (circle&)*otherObject);
+	return false;// collision_manager::aabb_vs_circle(*this, (circle&)*otherObject);
 }

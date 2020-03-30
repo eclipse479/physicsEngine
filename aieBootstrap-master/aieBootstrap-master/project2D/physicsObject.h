@@ -5,9 +5,10 @@
 enum class shapeType : char
 {
     //none = 0,
+    circle = 0,
     square,
-    circle,
-    plane
+    plane,
+    shapeCount
 };
 
 class physicsObject

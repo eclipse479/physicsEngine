@@ -43,7 +43,7 @@ bool Application2D::startup() {
 	thePhysicsScene->setTimeStep(0.01f);
 	thePhysicsScene->setGravity(glm::vec2(0.0f,0.0f));
 	
-	square = new aligned_bounding_box(glm::vec2(10, 10), glm::vec2(0, 0), glm::vec2(10, 10), 1, glm::vec4(0, 1, 0, 1));
+	square = new aligned_bounding_box(glm::vec2(10, 10), glm::vec2(0, 0), glm::vec4(0, 1, 0, 1), 1, glm::vec2(10, 10));
 
 	bluey = new circle(glm::vec2(-15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	reddy = new circle(glm::vec2(15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 7.0f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));

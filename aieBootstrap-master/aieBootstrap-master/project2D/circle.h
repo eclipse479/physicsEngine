@@ -19,7 +19,6 @@ public:
 	void set_radius(const float a_radius);
 
 
-	bool checkLineCollision(physicsObject* otherObject);//added
 	bool checkCollision(physicsObject* otherObject);
 
 	glm::vec4 getColour();

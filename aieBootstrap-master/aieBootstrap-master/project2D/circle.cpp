@@ -23,13 +23,10 @@ void circle::set_radius(const float a_radius)
 
 bool circle::checkCollision(physicsObject* otherObject)
 {
-		return collision_manager::circle_vs_circle(*this, (circle&)*otherObject);
+	return false;
+			//return collision_manager::circle_vs_circle(*this, (circle&)*otherObject);
 }
 
-bool circle::checkLineCollision(physicsObject* otherObject)//added
-{
-	return collision_manager::circle_vs_line(*this,(line&)*otherObject);
-}
 
 void circle::makeGizmo()
 {

@@ -18,6 +18,10 @@ public:
 	const float get_distance() const;
 	void set_distance(const float a_distance);
 	void drawLine();
+
+	virtual void fixedUpdate(glm::vec2 gravity, float timeStep) override {};
+	virtual void debug() override;
+	virtual void makeGizmo() override;
 private:
 	glm::vec2 normal = glm::vec2(0, 1);
 	glm::vec2 center = glm::vec2(0, 0);

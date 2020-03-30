@@ -10,7 +10,7 @@ class aligned_bounding_box : public rigidbody
 public:
 
 
-	aligned_bounding_box(const glm::vec2 a_position, glm::vec2 newVelocity, glm::vec2 newExtents, float newMass, glm::vec4 newColour);
+	aligned_bounding_box(const glm::vec2& a_position, const glm::vec2& newVelocity,  glm::vec4 newColour, const float newMass, const glm::vec2& newExtents  = glm::vec2(1.0f));
 
 	const glm::vec2 get_position() const;
 	void set_position(const glm::vec2& a_position);

@@ -1,7 +1,15 @@
 #include "physicsScene.h"
 #include "physicsObject.h"
+#include "collision_manager.h"
 #include <list>
 #include <algorithm>
+
+const collisionFunction physicsScene::collisionFunctionArray[] =
+{
+	collision_manager::circle_vs_circle, collision_manager::circle_vs_aabb, collision_manager::circle_vs_line,
+	collision_manager::aabb_vs_circle,   collision_manager::aabb_vs_aabb,   collision_manager::aabb_vs_line,
+	collision_manager::line_vs_circle,   collision_manager::line_vs_aabb,   collision_manager::line_vs_line,
+};
 
 physicsScene::physicsScene() : timeStep(0.01f), gravity(glm::vec2(0,0))
 {
@@ -42,8 +50,32 @@ void physicsScene::update(float deltaTime)
 		acculimlatedTime -= timeStep;
 	}
 		static std::list<physicsObject*> dirty;
+		int objectCount = objects.size();
 
-		for (auto object : objects)
+		for (int outer = 0; outer < objectCount-1;outer++)
+		{
+			for (int inner = outer+1;inner < objectCount; inner++)
+			{
+				physicsObject* object1 = objects[outer];
+				physicsObject* object2 = objects[inner];
+
+				int shapeID1 = (int)object1->getShape();
+				int shapeID2 = (int)object2->getShape();
+
+
+				int functionIndex = (int(shapeID1) * int(shapeType::shapeCount)) + int(shapeID2);
+				collisionFunction collisionFunctionPtr = collisionFunctionArray[collisionFunctionPtr];
+				if (collisionFunctionPtr != nullptr)
+				{
+					auto  result = collisionFunctionPtr(object1, object2);
+					if (glm::length(result) > 0.001f)
+					{
+						int dummyAssignmentForDebugMode = 1;
+					}
+				}
+			}
+		}
+		/*for (auto object : objects)
 		{ 
 			for (auto otherObject : objects)
 			{ 
@@ -63,11 +95,10 @@ void physicsScene::update(float deltaTime)
 					dirty.push_back(otherObject); 
 				}
 			} 
-		}
+		}*/
 		dirty.clear();
 
 }
-
 
 void physicsScene::updateGizmos()
 {

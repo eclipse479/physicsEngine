@@ -41,3 +41,18 @@ void line::drawLine()
 {
 	aie::Gizmos::add2DLine(glm::vec2(10, 500), glm::vec2(10, -500), colour);
 }
+
+void line::fixedUpdate(glm::vec2 gravity, float timeStep)
+{
+
+}
+void line::debug()
+{
+
+}
+void line::makeGizmo()
+{
+	glm::vec2 center = normal * distance;
+	glm::vec2 drawDirection(normal.y, - normal.x);
+	aie::Gizmos::add2DLine(center + (drawDirection * 500.0f), center + (drawDirection * 500.0f), colour);
+}

@@ -2,7 +2,11 @@
 #include "glm\glm.hpp"
 #include "physicsObject.h"
 #include "rigidbody.h"
+#include "collision_manager.h"
 #include <vector>
+#include <functional>
+using collisionFunction = std::function < glm::vec2(const physicsObject*, const physicsObject*)>;
+
 
 class physicsObject;
 
@@ -22,6 +26,11 @@ public:
 
 	void setTimeStep(const float newTimeStep) {timeStep = newTimeStep; }
 	float getTimeStep() const { return timeStep; }
+
+	
+
+	static const collisionFunction collisionFunctionArray[];
+	
 private:
 	glm::vec2 gravity;
 	float timeStep;

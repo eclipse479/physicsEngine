@@ -9,7 +9,7 @@ class line : public physicsObject
 {
 public:
 
-	line(glm::vec4 newColour, const glm::vec2& a_normal,
+	line(const glm::vec2& a_normal,
 		 const float a_distance = 0.0f);
 
 	const glm::vec2 get_normal() const;
@@ -17,10 +17,9 @@ public:
 
 	const float get_distance() const;
 	void set_distance(const float a_distance);
-	void drawLine();
 
+	virtual void debug() override {}
 	virtual void fixedUpdate(glm::vec2 gravity, float timeStep) override {};
-	virtual void debug() override;
 	virtual void makeGizmo() override;
 private:
 	glm::vec2 normal = glm::vec2(0, 1);

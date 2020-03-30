@@ -50,11 +50,12 @@ void physicsScene::update(float deltaTime)
 		acculimlatedTime -= timeStep;
 	}
 		static std::list<physicsObject*> dirty;
-		int objectCount = objects.size();
 
-		for (int outer = 0; outer < objectCount-1;outer++)
+		size_t objectCount = objects.size();
+
+		for (int outer = 0; outer < objectCount - 1;outer++)
 		{
-			for (int inner = outer+1;inner < objectCount; inner++)
+			for (int inner = outer + 1; inner < objectCount; inner++)
 			{
 				physicsObject* object1 = objects[outer];
 				physicsObject* object2 = objects[inner];
@@ -62,7 +63,7 @@ void physicsScene::update(float deltaTime)
 				int shapeID1 = (int)object1->getShape();
 				int shapeID2 = (int)object2->getShape();
 
-
+				//using function pointers
 				int functionIndex = (int(shapeID1) * int(shapeType::shapeCount)) + int(shapeID2);
 				collisionFunction collisionFunctionPtr = collisionFunctionArray[functionIndex];
 				if (collisionFunctionPtr != nullptr)
@@ -85,16 +86,16 @@ void physicsScene::update(float deltaTime)
 
 						if (r1 && r2)
 						{
-							r1->setPosition(r1->getPosition() - 0.5f * result);
-							r2->setPosition(r2->getPosition() + 0.5f * result);
+							r1->setPosition(r1->getPosition() + 0.5f * result);
+							r2->setPosition(r2->getPosition() - 0.5f * result);
 						}
 						else if (r1)
 						{
-							r1->setPosition(r1->getPosition() - 0.5f * result);
+							r1->setPosition(r1->getPosition() + 0.5f * result);
 						}
 						else if (r2)
 						{
-							r2->setPosition(r2->getPosition() - 0.5f * result);
+							r2->setPosition(r2->getPosition() + 0.5f * result);
 						}
 					}
 				}

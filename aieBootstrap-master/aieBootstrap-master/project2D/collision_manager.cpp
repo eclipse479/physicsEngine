@@ -24,10 +24,11 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 	const aligned_bounding_box* aabb1 = dynamic_cast<const aligned_bounding_box*>(a_aabb_A);
 	const aligned_bounding_box* aabb2 = dynamic_cast<const aligned_bounding_box*>(a_aabb_B);
 
-	float maxOverlap = 10000000.0f;
+	const float maxOverlap = 10000000.0f;
 	float overlap = maxOverlap; //<- neumeric float limit would be a better choice
 
 	glm::vec2 overlapVector = glm::vec2(0.0f);
+
 	//checks the X values for collision
 	if (aabb1->get_max().x > aabb2->get_min().x)
 	{
@@ -49,7 +50,7 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 		if (localOverlap < overlap)
 		{
 			overlap = localOverlap;
-			overlapVector = glm::vec2(overlap, 0);
+			overlapVector = glm::vec2(	overlap, 0);
 		}
 	}
 	else
@@ -100,10 +101,11 @@ glm::vec2 collision_manager::aabb_vs_circle(const physicsObject* a_aabb, const p
 
 	glm::vec2 displacement = clampedCenter - c->getPosition();
 	float overlap = c->getRadius() - glm::length(displacement);
+
 	if (overlap > 0.0f)
 		return glm::normalize((-displacement) * overlap);
-
-	return glm::vec2(0);
+	else
+		return glm::vec2(0);
 }
 
 
@@ -120,6 +122,7 @@ glm::vec2 collision_manager::aabb_vs_line(const physicsObject* a_aabb, const phy
 
 	float radius = fmaxf(fabsf(dotExtents), fabsf(dotNegExtents));
 	circle projection(aabb->getPosition(), glm::vec2(0.0f), aabb->getMass(), radius, glm::vec4(0.0f));
+
 	return circle_vs_line(&projection, a_line);
 }
 
@@ -136,10 +139,11 @@ glm::vec2 collision_manager::circle_vs_line(const physicsObject* a_circle, const
 
 	assert(c && l && "circle or line was null in collision check");
 
-	float positionDotNormal = glm::dot(c->getPosition(),(l->get_normal()));
+	float positionDotNormal = glm::dot(c->getPosition(), l->get_normal());
+
 	float distance = positionDotNormal - (l->get_distance() + c->getRadius());
 	if (distance < 0)
-		return -l->get_normal() * distance;
+		return l->get_normal() * -distance;
 	else
 		return glm::vec2(0.0f);
 }

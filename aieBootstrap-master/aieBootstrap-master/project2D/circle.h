@@ -24,6 +24,7 @@ public:
 	glm::vec4 getColour();
 
 	virtual void makeGizmo();
+	void debug() {}
 private:
 	float radius = 0.0f;
 	glm::vec4 colour = glm::vec4(1,1,1,1);

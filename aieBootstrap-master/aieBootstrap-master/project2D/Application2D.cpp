@@ -37,15 +37,21 @@ bool Application2D::startup() {
 
 	thePhysicsScene->setTimeStep(0.01f);
 	thePhysicsScene->setGravity(glm::vec2(0.0f,0.0f));
-	
-	square = new aligned_bounding_box(glm::vec2(10, 10), glm::vec2(0, 0), glm::vec4(0, 1, 0, 1), 1, glm::vec2(10, 10));
-	//rightWall = new line(glm::vec4(1,0,1,1), glm::vec2(1,0), 50);
-	bluey = new circle(glm::vec2(-15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	reddy = new circle(glm::vec2(15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 7.0f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+
+	square = new aligned_bounding_box(glm::vec2(30, 10), glm::vec2(0, 0), glm::vec4(0, 1, 0, 1), 1, glm::vec2(5, 5));
 	thePhysicsScene->addActor(square);
+
+	square2 = new aligned_bounding_box(glm::vec2(-30, -20), glm::vec2(0, 0), glm::vec4(1, 0, 1, 1), 1, glm::vec2(5, 5));
+	thePhysicsScene->addActor(square2);
+
+	bluey = new circle(glm::vec2(-15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
 	thePhysicsScene->addActor(bluey);
+
+	reddy = new circle(glm::vec2(15.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 7.0f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 	thePhysicsScene->addActor(reddy);
-	//thePhysicsScene->addActor(rightWall);
+
+	floor = new line(glm::vec2(0,1),-50);
+	thePhysicsScene->addActor(floor);
 
 	m_timer = 0;
 
@@ -90,13 +96,14 @@ void Application2D::update(float deltaTime) {
 	m_2dRenderer->setCameraPos(camPosX, camPosY);
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
 	{
-		bluey->applyForce(glm::vec2(10.0f, 0));
+		bluey->applyForce(glm::vec2(10.0f, 0)); 
+		thePhysicsScene->setGravity(glm::vec2(0, -9.8f));
 	}
 
 
 
 	aie::Gizmos::clear();
-	//aie::Gizmos::add2DLine(glm::vec2(50, 500), glm::vec2(50, -500), glm::vec4(1, 0, 1, 1));
+	
 	thePhysicsScene->update(deltaTime);
 	thePhysicsScene->updateGizmos();
 

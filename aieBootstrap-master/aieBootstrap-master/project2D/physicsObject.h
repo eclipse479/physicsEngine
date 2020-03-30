@@ -25,5 +25,8 @@ public:
     virtual void debug() = 0;
     virtual void makeGizmo() = 0;
     virtual void resetPosition() {};
-    shapeType getShape() { return theShape;}
+
+
+    shapeType getShape() const
+    { return theShape;}
 };

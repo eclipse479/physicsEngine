@@ -24,6 +24,7 @@ public:
 	const glm::vec2 get_min() const;
 	const glm::vec2 get_max() const;
 
+	void debug() {}
 	void makeGizmo();
 	bool checkCollision(physicsObject* otherObject);
 

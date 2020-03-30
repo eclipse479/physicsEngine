@@ -30,7 +30,8 @@ protected:
 	circle*					bluey;
 	circle*					reddy;
 	aligned_bounding_box*	square;
-	line*					rightWall;
+	aligned_bounding_box*	square2;
+	line*					floor;
 
 	float m_timer;
 };

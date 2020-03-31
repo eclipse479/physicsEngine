@@ -57,45 +57,44 @@ void physicsScene::update(float deltaTime)
 		{
 			for (int inner = outer + 1; inner < objectCount; inner++)
 			{
+				//grabs the colliding objects
 				physicsObject* object1 = objects[outer];
 				physicsObject* object2 = objects[inner];
-
+				//gets the shape type of the objects
 				int shapeID1 = (int)object1->getShape();
 				int shapeID2 = (int)object2->getShape();
 
 				//using function pointers
 				int functionIndex = (int(shapeID1) * int(shapeType::shapeCount)) + int(shapeID2);
-				collisionFunction collisionFunctionPtr = collisionFunctionArray[functionIndex];
+				collisionFunction collisionFunctionPtr = collisionFunctionArray[functionIndex]; // calls the collision check between the two objects
 				if (collisionFunctionPtr != nullptr)
 				{
 					auto  result = collisionFunctionPtr(object1, object2);
 					if (glm::length(result) > 0.001f)
 					{
+						//checks if the objects have a rigidbody
 						rigidbody* r1 = dynamic_cast<rigidbody*>(object1);
 						rigidbody* r2 = dynamic_cast<rigidbody*>(object2);
 
-						if(r1)
-						{
-							r1->setVelocity(glm::vec2(0));
-						}
-						if (r2)
-						{
-							r2->setVelocity(glm::vec2(0));
-						}
 
-
-						if (r1 && r2)
+						if (r1 && r2)//if both ahave a rigidbody
 						{
+							r1->resloveCollision(r2, result);
 							r1->setPosition(r1->getPosition() + 0.5f * result);
 							r2->setPosition(r2->getPosition() - 0.5f * result);
 						}
-						else if (r1)
+						else if (r1)//if only r1 ahave a rigidbody
 						{
 							r1->setPosition(r1->getPosition() + 0.5f * result);
+							line* l = dynamic_cast<line*>(object2);
+							l->resloveCollision(r1);
+						
 						}
-						else if (r2)
+						else if (r2)//if only r2 ahave a rigidbody
 						{
-							r2->setPosition(r2->getPosition() + 0.5f * result);
+							r2->setPosition(r2->getPosition() - 0.5f * result);
+							line* l = dynamic_cast<line*>(object1);
+							l->resloveCollision(r2);
 						}
 					}
 				}

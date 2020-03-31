@@ -16,7 +16,7 @@ const float circle::getRadius() const
 {
 	return radius;
 }
-void circle::set_radius(const float a_radius)
+void circle::setRadius(const float a_radius)
 {
 	radius = abs(a_radius);
 }

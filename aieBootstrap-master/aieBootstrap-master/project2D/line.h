@@ -1,6 +1,7 @@
 #pragma once
 #include "physicsObject.h"
 
+class rigidbody;
 
 #ifndef _LINE_H_
 #define _LINE_H_
@@ -12,15 +13,16 @@ public:
 	line(const glm::vec2& a_normal,
 		 const float a_distance = 0.0f);
 
-	const glm::vec2 get_normal() const;
-	void set_normal(const glm::vec2& a_normal);
+	const glm::vec2 getNormal() const;
+	void setNormal(const glm::vec2& a_normal);
 
-	const float get_distance() const;
-	void set_distance(const float a_distance);
+	const float getDistance() const;
+	void setDistance(const float a_distance);
 
 	virtual void debug() override {}
 	virtual void fixedUpdate(glm::vec2 gravity, float timeStep) override {};
 	virtual void makeGizmo() override;
+	void resloveCollision(rigidbody* other);
 private:
 	glm::vec2 normal = glm::vec2(0, 1);
 	glm::vec2 center = glm::vec2(0, 0);

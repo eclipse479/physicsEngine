@@ -30,11 +30,11 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 	glm::vec2 overlapVector = glm::vec2(0.0f);
 
 	//checks the X values for collision
-	if (aabb1->get_max().x > aabb2->get_min().x)
+	if (aabb1->getMax().x > aabb2->getMin().x)
 	{
-		float amax = aabb1->get_max().x;
-		float amin = aabb2->get_min().x;
-		float localOverlap = abs(aabb1->get_max().x - aabb2->get_min().x);
+		float amax = aabb1->getMax().x;
+		float amin = aabb2->getMin().x;
+		float localOverlap = abs(aabb1->getMax().x - aabb2->getMin().x);
 		if (localOverlap < overlap)
 		{
 			overlap = localOverlap;
@@ -46,9 +46,9 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 		return glm::vec2(0, 0);
 	}
 
-	if (aabb1->get_min().x < aabb2->get_max().x)
+	if (aabb1->getMin().x < aabb2->getMax().x)
 	{
-		float localOverlap = abs(aabb1->get_min().x - aabb2->get_max().x);
+		float localOverlap = abs(aabb1->getMin().x - aabb2->getMax().x);
 		if (localOverlap < overlap)
 		{
 			overlap = localOverlap;
@@ -60,9 +60,9 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 		return glm::vec2(0, 0);
 	}
 	//checks the Y values for collision
-	if (aabb1->get_max().y > aabb2->get_min().y)
+	if (aabb1->getMax().y > aabb2->getMin().y)
 	{
-		float localOverlap = abs(aabb1->get_max().y - aabb2->get_min().y);
+		float localOverlap = abs(aabb1->getMax().y - aabb2->getMin().y);
 		if (localOverlap < overlap)
 		{
 			overlap = localOverlap;
@@ -73,9 +73,9 @@ glm::vec2 collision_manager::aabb_vs_aabb(const physicsObject* a_aabb_A, const p
 	{
 		return glm::vec2(0, 0);
 	}
-	if (aabb1->get_min().y < aabb2->get_max().y)
+	if (aabb1->getMin().y < aabb2->getMax().y)
 	{
-		float localOverlap = abs(aabb1->get_min().y - aabb2->get_max().y);
+		float localOverlap = abs(aabb1->getMin().y - aabb2->getMax().y);
 		if (localOverlap < overlap)
 		{
 			overlap = localOverlap;
@@ -99,7 +99,7 @@ glm::vec2 collision_manager::aabb_vs_circle(const physicsObject* a_aabb, const p
 	const aligned_bounding_box* aabb = dynamic_cast<const aligned_bounding_box*>(a_aabb);
 	const circle* c = dynamic_cast<const circle*>(a_circle);
 
-	glm::vec2 clampedCenter = glm::clamp(c->getPosition(), aabb->get_min(), aabb->get_max());
+	glm::vec2 clampedCenter = glm::clamp(c->getPosition(), aabb->getMin(), aabb->getMax());
 
 	glm::vec2 displacement = clampedCenter - c->getPosition();
 	float overlap = c->getRadius() - glm::length(displacement);
@@ -116,11 +116,11 @@ glm::vec2 collision_manager::aabb_vs_line(const physicsObject* a_aabb, const phy
 	const aligned_bounding_box* aabb = dynamic_cast<const aligned_bounding_box*>(a_aabb);
 	const line* l = dynamic_cast<const line*>(a_line);
 
-	glm::vec2 extents = 0.5f * aabb->get_extents();
-	glm::vec2 extents_neg_x = 0.5f * glm::vec2(-aabb->get_extents().x, aabb->get_extents().y);
+	glm::vec2 extents = 0.5f * aabb->getExtents();
+	glm::vec2 extents_neg_x = 0.5f * glm::vec2(-aabb->getExtents().x, aabb->getExtents().y);
 	;
-	float dotExtents = glm::dot(extents, l->get_normal());
-	float dotNegExtents = glm::dot(extents_neg_x, l->get_normal());
+	float dotExtents = glm::dot(extents, l->getNormal());
+	float dotNegExtents = glm::dot(extents_neg_x, l->getNormal());
 
 	float radius = fmaxf(fabsf(dotExtents), fabsf(dotNegExtents));
 	circle projection(aabb->getPosition(), glm::vec2(0.0f), aabb->getMass(), radius, glm::vec4(0.0f));
@@ -141,11 +141,11 @@ glm::vec2 collision_manager::circle_vs_line(const physicsObject* a_circle, const
 
 	assert(c && l && "circle or line was null in collision check");
 
-	float positionDotNormal = glm::dot(c->getPosition(), l->get_normal());
+	float positionDotNormal = glm::dot(c->getPosition(), l->getNormal());
 
-	float distance = positionDotNormal - (l->get_distance() + c->getRadius());
+	float distance = positionDotNormal - (l->getDistance() + c->getRadius());
 	if (distance < 0)
-		return l->get_normal() * -distance;
+		return l->getNormal() * -distance;
 	else
 		return glm::vec2(0.0f);
 }

@@ -1,4 +1,5 @@
 #include "line.h"
+#include "rigidbody.h"
 #include <limits>
 
 line::line(const glm::vec2& a_normal /* = { 0.0f, 1.0f }*/,	const float a_distance /*= 0.0f*/) :
@@ -6,15 +7,15 @@ line::line(const glm::vec2& a_normal /* = { 0.0f, 1.0f }*/,	const float a_distan
 	distance(a_distance),
 	physicsObject(shapeType::plane)
 {
-	set_normal(normal);
+	setNormal(normal);
 }
 
-const glm::vec2 line::get_normal() const
+const glm::vec2 line::getNormal() const
 {
 	return normal;
 }
 
-void line::set_normal(const glm::vec2& a_normal)
+void line::setNormal(const glm::vec2& a_normal)
 {
 	if (glm::length(a_normal) <= 0)
 	{
@@ -26,12 +27,12 @@ void line::set_normal(const glm::vec2& a_normal)
 	}
 }
 
-const float line::get_distance() const
+const float line::getDistance() const
 {
 	return distance;
 }
 
-void line::set_distance(const float a_distance)
+void line::setDistance(const float a_distance)
 {
 	distance = a_distance;
 }
@@ -41,4 +42,19 @@ void line::makeGizmo()
 	center = normal * distance;
 	glm::vec2 drawDirection(normal.y, - normal.x);
 	aie::Gizmos::add2DLine((center + (drawDirection * 500.0f)), (center - (drawDirection * 500.0f)), glm::vec4(1.0f));
+}
+
+void line::resloveCollision(rigidbody* other)
+{
+
+	glm::vec2 relativeVelocity = other->getVelocity();
+
+	float elasticity = 1.0f;
+
+	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), normal)
+		/    /*divided by*/
+		glm::dot(normal, normal * (1 / other->getMass()));
+
+	glm::vec2 force = normal * j;
+	other->applyForce(force);
 }

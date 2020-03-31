@@ -32,6 +32,9 @@ protected:
 	aligned_bounding_box*	square;
 	aligned_bounding_box*	square2;
 	line*					floor;
+	line*					leftWall;
+	line*					rightWall;
+	line*					roof;
 
 	float m_timer;
 };

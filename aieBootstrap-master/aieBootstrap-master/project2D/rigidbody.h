@@ -33,6 +33,9 @@ public:
     void setVelocity(glm::vec2 newVelocity);
         
     void setPosition(glm::vec2 newPosition);
+
+    void resloveCollision(rigidbody* other, glm::vec2 collisionNormal);
+
 protected:
     rigidbody(shapeType shapeID, glm::vec2 newPosition, glm::vec2 newVelocity, float newMass);
 

@@ -38,3 +38,19 @@ void rigidbody::setPosition(glm::vec2 newPosition)
 {
 	m_position = newPosition;
 }
+
+void rigidbody::resloveCollision(rigidbody* other, glm::vec2 collisionNormal)
+{
+	glm::vec2 normal = glm::normalize(collisionNormal);
+
+	glm::vec2 relativeVelocity = other->getVelocity() - velocity;
+
+	float elasticity = 1.0f;
+
+	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), normal)
+							/    /*divided by*/
+	glm::dot(normal, normal * ((1 / mass) + (1 / other->getMass())));
+
+	glm::vec2 force = normal * j;
+	applySeparationForce(other, force);
+}

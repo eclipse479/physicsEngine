@@ -16,7 +16,7 @@ public:
 	/*	@brief Sets the radius to the absolute value of the argument
 		@param The new radius as float
 	*/
-	void set_radius(const float a_radius);
+	void setRadius(const float a_radius);
 
 
 	bool checkCollision(physicsObject* otherObject);

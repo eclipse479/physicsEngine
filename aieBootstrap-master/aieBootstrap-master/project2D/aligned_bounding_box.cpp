@@ -16,42 +16,42 @@ aligned_bounding_box::aligned_bounding_box(const glm::vec2& a_position, const gl
 
 }
 
-const glm::vec2 aligned_bounding_box::get_position() const
+const glm::vec2 aligned_bounding_box::getPosition() const
 {
 	return m_position;
 }
 
-void aligned_bounding_box::set_position(const glm::vec2& a_position)
+void aligned_bounding_box::setPosition(const glm::vec2& a_position)
 {
 	m_position = a_position;
 }
 
-const glm::vec2 aligned_bounding_box::get_extents() const
+const glm::vec2 aligned_bounding_box::getExtents() const
 {
 	return extents;
 }
 
-void aligned_bounding_box::set_extents(const glm::vec2& a_extents)
+void aligned_bounding_box::setExtents(const glm::vec2& a_extents)
 {
 	extents = { abs(a_extents.x), abs(a_extents.y) };
 }
 
-const float aligned_bounding_box::get_width() const
+const float aligned_bounding_box::getWidth() const
 {
 	return width;
 }
 
-const float aligned_bounding_box::get_height() const
+const float aligned_bounding_box::getHeight() const
 {
 	return height;
 }
 
-const glm::vec2 aligned_bounding_box::get_min() const
+const glm::vec2 aligned_bounding_box::getMin() const
 {
 	return m_position - 0.5f * extents;
 }
 
-const glm::vec2 aligned_bounding_box::get_max() const
+const glm::vec2 aligned_bounding_box::getMax() const
 {
 	return m_position + 0.5f * extents;
 }

@@ -26,7 +26,7 @@ public:
     virtual void makeGizmo() = 0;
     virtual void resetPosition() {};
 
-
+    glm::vec4 colour = glm::vec4(1.0f);
     shapeType getShape() const
     { return theShape;}
 };

@@ -24,7 +24,7 @@ bool Application2D::startup() {
 	
 	aie::Gizmos::create(255U, 255U, 65535U, 65535U);
 
-	
+	srand(time(NULL));
 
 	m_2dRenderer = new aie::Renderer2D();
 
@@ -34,33 +34,51 @@ bool Application2D::startup() {
 	m_font = new aie::Font("./font/consolas.ttf", 32);
 	
 	thePhysicsScene = new physicsScene();
-
+	//creates the time step for the fixed update
 	thePhysicsScene->setTimeStep(0.01f);
+	//sets gravity(can be in any direction)
 	thePhysicsScene->setGravity(glm::vec2(0.0f,0.0f));
 
-	square = new aligned_bounding_box(glm::vec2(30, 10), glm::vec2(0, 0), glm::vec4(0, 1, 0, 1), 1, glm::vec2(10, 10));
-	thePhysicsScene->addActor(square);
 
-	square2 = new aligned_bounding_box(glm::vec2(30, 20), glm::vec2(0, 0), glm::vec4(1, 0, 1, 1), 1, glm::vec2(10, 10));
-	thePhysicsScene->addActor(square2);
-
-	bluey = new circle(glm::vec2(45.0f, 20.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
-	thePhysicsScene->addActor(bluey);
-
-	reddy = new circle(glm::vec2(-45.0f, -10.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
-	thePhysicsScene->addActor(reddy);
-
-	floor = new line(glm::vec2(0,1),-50);
-	thePhysicsScene->addActor(floor);
+	//square = new aligned_bounding_box(glm::vec2(30, 10), glm::vec2(0, 0), glm::vec4(0, 1, 0, 1), 1, glm::vec2(10, 10));
+	//thePhysicsScene->addActor(square);
 	
-	roof = new line(glm::vec2(0,-1),-50);
-	thePhysicsScene->addActor(roof);
+	
+	//square2 = new aligned_bounding_box(glm::vec2(30, 20), glm::vec2(0, 0), glm::vec4(1, 0, 1, 1), 1, glm::vec2(10, 10));
+	//thePhysicsScene->addActor(square2);
+	//
+	//
+	//
+	//placeHolder = new aligned_bounding_box(glm::vec2(-20, 40), glm::vec2(0, 0), glm::vec4(0.5f, 0, 0.25f, 1), 1, glm::vec2(5, 5));
+	//thePhysicsScene->addActor(placeHolder);
+	//blueBall = new circle(glm::vec2(45.0f, 20.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f));
+	//thePhysicsScene->addActor(blueBall);
+	//
+	//redBall = new circle(glm::vec2(5.0f, 35.0f), glm::vec2(0.0f, 0.0f), 1.0f, 5.0f, glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+	//thePhysicsScene->addActor(redBall);
+	//
+	//
+	floor = new line(glm::vec4(0.6f,0.3f,0,1), glm::vec2(0,1),-50); // brown line
+	thePhysicsScene->addActor(floor);
+	//
+	placeHolder = new aligned_bounding_box(glm::vec2(-20, 40), glm::vec2(0, 0), glm::vec4(1, 1, 1, 1), 1, glm::vec2(5, 5));
+	thePhysicsScene->addActor(placeHolder);
+	//roof = new line(glm::vec4(0.4f, 1, 1, 1), glm::vec2(0,-1),-50); // cyan line
+	//thePhysicsScene->addActor(roof);
+	//
+	//leftWall = new line(glm::vec4(0.08f, 0.5f, 0, 1), glm::vec2(1, 0), -80); // green line
+	//thePhysicsScene->addActor(leftWall);
+	//
+	//rightWall = new line(glm::vec4(1, 0.53f, 0.3f, 1), glm::vec2(-1, 0), -80);//coral line
+	//thePhysicsScene->addActor(rightWall);
+	//
+	//angledBottomLeft = new line(glm::vec4(1, 1, 0.1f, 1), glm::vec2(1, 1), -30); //yellow line
+	//thePhysicsScene->addActor(angledBottomLeft);
+	//
+	//angledBottomRight = new line(glm::vec4(0.9f, 0, 0, 1), glm::vec2(-1, 1), -30); // crimson line
+	//thePhysicsScene->addActor(angledBottomRight);
 
-	leftWall = new line(glm::vec2(1, 0), -80);
-	thePhysicsScene->addActor(leftWall);
-
-	rightWall = new line(glm::vec2(-1, 0), -80);
-	thePhysicsScene->addActor(rightWall);
+	
 	m_timer = 0;
 
 
@@ -90,28 +108,49 @@ void Application2D::update(float deltaTime) {
 	m_2dRenderer->getCameraPos(camPosX, camPosY);
 
 	if (input->isKeyDown(aie::INPUT_KEY_UP))
-		camPosY += 500.0f * deltaTime;
+	{
+		blueBall->applyForce(glm::vec2(0.0f, 10));
+	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-		camPosY -= 500.0f * deltaTime;
+	{
+		blueBall->applyForce(glm::vec2(0, -10));
+	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
-		camPosX -= 500.0f * deltaTime;
+	{
+		blueBall->applyForce(glm::vec2(-10.0f, 0));
+	}
 
 	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-		camPosX += 500.0f * deltaTime;
+	{
+		blueBall->applyForce(glm::vec2(10.0f, 0));
+	}
 
 	m_2dRenderer->setCameraPos(camPosX, camPosY);
+
+
+	if (input->wasKeyPressed(aie::INPUT_KEY_C))
+	{
+		float r = rand() % 100;
+		float g = rand() % 100;
+		float b = rand() % 100;
+		r /= 100;
+		g /= 100;
+		b /= 100;
+		//placeHolder = new aligned_bounding_box(glm::vec2(0, 40), glm::vec2(0, 0), glm::vec4(r, g, b, 1), 1, glm::vec2(5, 5));
+		//thePhysicsScene->addActor(placeHolder);
+	}
 	if (input->wasKeyPressed(aie::INPUT_KEY_SPACE))
 	{
-		bluey->applyForce(glm::vec2(-100.0f, 0)); 
-		thePhysicsScene->setGravity(glm::vec2(0, -9.8f));
+		//blueBall->applyForce(glm::vec2(-10.0f, 0)); 
+		thePhysicsScene->setGravity(glm::vec2(0, -50.0f));
 	}
 
 
 
 	aie::Gizmos::clear();
-	
+	aie::Gizmos::add2DAABB(glm::vec2(0, 50), glm::vec2(5, 7), glm::vec4(0.9f, 0.9f, 1, 1));
 	thePhysicsScene->update(deltaTime);
 	thePhysicsScene->updateGizmos();
 

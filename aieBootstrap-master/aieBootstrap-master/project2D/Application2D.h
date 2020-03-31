@@ -2,7 +2,7 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
-
+#include <list>
 class circle;
 class physicsScene;
 class line;
@@ -27,14 +27,18 @@ protected:
 	aie::Texture*			m_shipTexture;
 	aie::Font*				m_font;
 	physicsScene*			thePhysicsScene;
-	circle*					bluey;
-	circle*					reddy;
+	circle*					blueBall;
+	circle*					redBall;
+	aligned_bounding_box*	placeHolder;
+	std::list<circle*>		circleList;
 	aligned_bounding_box*	square;
 	aligned_bounding_box*	square2;
 	line*					floor;
 	line*					leftWall;
 	line*					rightWall;
 	line*					roof;
+	line*					angledBottomLeft;
+	line*					angledBottomRight;
 
 	float m_timer;
 };

@@ -2,9 +2,10 @@
 #include "rigidbody.h"
 #include <limits>
 
-line::line(const glm::vec2& a_normal /* = { 0.0f, 1.0f }*/,	const float a_distance /*= 0.0f*/) :
+line::line(glm::vec4 newColour, const glm::vec2& a_normal,	const float a_distance /*= 0.0f*/) :
 	normal(a_normal),
 	distance(a_distance),
+	colour(newColour),
 	physicsObject(shapeType::plane)
 {
 	setNormal(normal);
@@ -41,7 +42,7 @@ void line::makeGizmo()
 {
 	center = normal * distance;
 	glm::vec2 drawDirection(normal.y, - normal.x);
-	aie::Gizmos::add2DLine((center + (drawDirection * 500.0f)), (center - (drawDirection * 500.0f)), glm::vec4(1.0f));
+	aie::Gizmos::add2DLine((center + (drawDirection * 500.0f)), (center - (drawDirection * 500.0f)), colour);
 }
 
 void line::resloveCollision(rigidbody* other)
@@ -52,7 +53,7 @@ void line::resloveCollision(rigidbody* other)
 	float elasticity = 1.0f;
 
 	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), normal)
-		/    /*divided by*/
+								/    /*divided by*/
 		glm::dot(normal, normal * (1 / other->getMass()));
 
 	glm::vec2 force = normal * j;

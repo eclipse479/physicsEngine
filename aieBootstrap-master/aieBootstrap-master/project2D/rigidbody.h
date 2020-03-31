@@ -21,7 +21,6 @@ public:
     
     virtual void debug(); 
     
-    virtual bool checkCollision(physicsObject* pOther) = 0;
     
     void applyForce(glm::vec2 force);
     void applySeparationForce(rigidbody* actor2, glm::vec2 force); 

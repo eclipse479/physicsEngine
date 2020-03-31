@@ -58,10 +58,6 @@ const glm::vec2 aligned_bounding_box::getMax() const
 
 void aligned_bounding_box::makeGizmo()
 {
+	// draw a filled square
 	aie::Gizmos::add2DAABBFilled(m_position, (extents * 0.5f), colour);
-}
-
-bool aligned_bounding_box::checkCollision(physicsObject* otherObject)
-{
-	return false;// collision_manager::aabb_vs_circle(*this, (circle&)*otherObject);
 }

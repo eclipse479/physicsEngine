@@ -26,10 +26,9 @@ public:
 
 	void debug() {}
 	void makeGizmo();
-	bool checkCollision(physicsObject* otherObject);
 
 private:
-	//glm::vec2 m_position{ 0.0f, 0.0f };
+	//union -> vec2 extents and width/height float share the same memory
 	union
 	{
 		glm::vec2 extents;

@@ -21,12 +21,6 @@ void circle::setRadius(const float a_radius)
 	radius = abs(a_radius);
 }
 
-bool circle::checkCollision(physicsObject* otherObject)
-{
-	return false;
-			//return collision_manager::circle_vs_circle(*this, (circle&)*otherObject);
-}
-
 
 void circle::makeGizmo()
 {

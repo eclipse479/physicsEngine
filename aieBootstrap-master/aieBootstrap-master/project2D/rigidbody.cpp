@@ -49,7 +49,7 @@ void rigidbody::resloveCollision(rigidbody* other, glm::vec2 collisionNormal)
 
 	float j = glm::dot(-(1 + elasticity) * (relativeVelocity), normal)
 							/    /*divided by*/
-	glm::dot(normal, normal * ((1 / mass) + (1 / other->getMass())));
+		glm::dot(normal, normal * ((1 / mass) + (1 / other->getMass())));
 
 	glm::vec2 force = normal * j;
 	applySeparationForce(other, force);

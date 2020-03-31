@@ -18,9 +18,6 @@ public:
 	*/
 	void setRadius(const float a_radius);
 
-
-	bool checkCollision(physicsObject* otherObject);
-
 	glm::vec4 getColour();
 
 	virtual void makeGizmo();

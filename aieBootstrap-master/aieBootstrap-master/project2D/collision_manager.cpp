@@ -110,7 +110,6 @@ glm::vec2 collision_manager::aabb_vs_circle(const physicsObject* a_aabb, const p
 		return glm::vec2(0);
 }
 
-
 glm::vec2 collision_manager::aabb_vs_line(const physicsObject* a_aabb, const physicsObject* a_line)
 {
 	const aligned_bounding_box* aabb = dynamic_cast<const aligned_bounding_box*>(a_aabb);
@@ -128,7 +127,6 @@ glm::vec2 collision_manager::aabb_vs_line(const physicsObject* a_aabb, const phy
 	return circle_vs_line(&projection, a_line);
 }
 
-
 glm::vec2 collision_manager::circle_vs_aabb(const physicsObject* a_circle, const physicsObject* a_aabb)
 {
 	return aabb_vs_circle(a_aabb, a_circle);
@@ -136,10 +134,10 @@ glm::vec2 collision_manager::circle_vs_aabb(const physicsObject* a_circle, const
 
 glm::vec2 collision_manager::circle_vs_line(const physicsObject* a_circle, const physicsObject* a_line)
 {
-	const circle* c = dynamic_cast<const circle*>(a_circle);
+ 	const circle* c = dynamic_cast<const circle*>(a_circle);
 	const line* l = dynamic_cast<const line*>(a_line);
 
-	assert(c && l && "circle or line was null in collision check");
+	//assert(c && l && "circle or line was null in collision check");
 
 	float positionDotNormal = glm::dot(c->getPosition(), l->getNormal());
 
